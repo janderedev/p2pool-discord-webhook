@@ -10,4 +10,5 @@ WORKDIR /app/
 COPY --from=build /build/package.json /build/yarn.lock ./
 COPY --from=build /build/dist ./dist
 RUN yarn install --production --frozen-lockfile
+ENV P2POOL_API_PATH "/api"
 CMD ["yarn", "start"]

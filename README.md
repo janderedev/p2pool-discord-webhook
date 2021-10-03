@@ -13,5 +13,5 @@ WEBHOOK_ID=discord-webhook-id
 WEBHOOK_TOKEN=discord-webhook-token
 ```
 
-Install dependencies with `yarn`, then start the script with `yarn start`. \
+Install dependencies with `yarn`, then start the script with `yarn dev`. \
 Alternatively, you can use the bundled Dockerfile to run the script in docker.

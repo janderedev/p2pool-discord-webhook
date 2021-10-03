@@ -4,7 +4,9 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "start": "rm -rf dist && tsc && node dist/index"
+    "build": "rm -rf dist && tsc",
+    "start": "node dist/index",
+    "dev": "yarn build && yarn start"
   },
   "keywords": [],
   "author": "",
