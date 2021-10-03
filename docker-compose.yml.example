@@ -1,0 +1,13 @@
+version: "3.0"
+
+services:
+  app:
+    build: .
+    restart: always
+    volumes:
+      - ./db.json:/app/db.json:rw             # This file is used to keep track of the block count
+      - /home/user/p2pool/api:/api            # Mount the p2pool API directory at /api, or overwrite $P2POOL_API_PATH
+    environment:
+      # - P2POOL_API_PATH=/api                # Set to /api by default
+      - WEBHOOK_ID=discord-webhook-id         # Discord webhook ID
+      - WEBHOOK_TOKEN=discord-webhook-token   # Discord webhook token
