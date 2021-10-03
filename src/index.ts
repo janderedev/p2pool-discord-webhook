@@ -40,34 +40,29 @@ async function run() {
         );
 
         let totalBlocks = apiInfo.pool_statistics.totalBlocksFound;
-        if (totalBlocks > file.blocksFound) {
-            // p2pool instance might have changed
-            file.blocksFound = totalBlocks;
-        } else {
-            while (totalBlocks < file.blocksFound) {
-                totalBlocks++;
-
-                console.log('Block found: ' + totalBlocks);
-
-                let embed = new MessageEmbed()
-                    .setTitle('New block found!')
-                    .setDescription(`Block ${totalBlocks} has been found!`)
-                    .setColor('#50b343');
-                
-                embed.addField('Blocks', JSON.stringify(poolStats.pool.blocks), false);
-
-                embed.addField('Sidechain hashrate', `${Math.round((apiInfo.pool_statistics.hashRate / 10**6) * 10) / 10}mh/s`, true);
-                embed.addField('Sidechain height', poolStats.network.height, true);
-                embed.addField('Miners', poolStats.pool.miners, true);
-
-                embed.setFooter(`Payout threshold: ${Number((poolStats.config.minPaymentThreshold * 10**-12).toFixed(15))} XMR`);
-
-                client.send(embed)
-                    .catch(console.error);
-            }
-
-            await fs.promises.writeFile(DBFILE_PATH, JSON.stringify({ blocksFound: apiInfo.pool_statistics.totalBlocksFound }, null, 4));
+        while (totalBlocks > file.blocksFound) {
+            file.blocksFound++;
+        
+            console.log('Block found: ' + totalBlocks);
+        
+            let embed = new MessageEmbed()
+                .setTitle('New block found!')
+                .setDescription(`Block ${totalBlocks} has been found!`)
+                .setColor('#50b343');
+            
+            embed.addField('Blocks', JSON.stringify(poolStats.pool.blocks), false);
+        
+            embed.addField('Sidechain hashrate', `${Math.round((apiInfo.pool_statistics.hashRate / 10**6) * 10) / 10}mh/s`, true);
+            embed.addField('Sidechain height', poolStats.network.height, true);
+            embed.addField('Miners', poolStats.pool.miners, true);
+        
+            embed.setFooter(`Payout threshold: ${Number((poolStats.config.minPaymentThreshold * 10**-12).toFixed(15))} XMR`);
+        
+            client.send(embed)
+                .catch(console.error);
         }
+
+        await fs.promises.writeFile(DBFILE_PATH, JSON.stringify({ blocksFound: apiInfo.pool_statistics.totalBlocksFound }, null, 4));
     } catch(e) {
         console.error(e);
     }
