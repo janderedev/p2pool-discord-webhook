@@ -5,7 +5,7 @@ import fs from 'fs';
 import path from 'path';
 
 const { WEBHOOK_ID, WEBHOOK_TOKEN, P2POOL_API_PATH } = process.env;
-const DBFILE_PATH = path.join(__dirname, "db.json");
+const DBFILE_PATH = path.join(__dirname, "..", "db.json");
 
 let client = new WebhookClient(WEBHOOK_ID as string, WEBHOOK_TOKEN as string, { disableMentions: 'everyone' });
 
