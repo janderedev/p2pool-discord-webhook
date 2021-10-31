@@ -163,19 +163,19 @@ if (process.env['WALLET_ADDRESS'] && process.env['XMRVSBEAST_TOKEN']) {
                                         .addField('Time', time, true)
                                         .setColor('#c54b4b');
                                 } else {
-                                    // Format: walletad...dress123 123.4kH/s yyyy-mm-dd
-                                    let [ addr, hashrate, date ] = line;
+                                    // Format: walletad...dress123 123.4kH/s yyyy-mm-dd ["Boost" if boost, empty otherwise]
+                                    let [ addr, hashrate, date, boost ] = line;
                                     if (
                                         /[A-z0-9]{8}\.{3}[A-z0-9]{8}/.test(addr) &&
                                         /[0-9]+(\.[0-9]+)?kH\/s/.test(hashrate) &&
                                         /[0-9]{4}-[0-9]{1,2}-[0-9]{1,2}/.test(date)
                                     ) {
                                         embed
-                                            .setDescription('You won the bonus raffle!')
+                                            .setDescription(`You won the ${boost == 'Boost' ? '**boost**' : 'bonus'} raffle!`)
                                             .addField('Wallet address', addr, true)
                                             .addField('Bonus Hashrate', hashrate, true)
                                             .addField('Date', date, true)
-                                            .setColor('#50b343');
+                                            .setColor(boost == 'Boost' ? '#0c69ff' : '#50b343');
                                     } else {
                                         embed
                                             .setDescription(line.join(' '))
