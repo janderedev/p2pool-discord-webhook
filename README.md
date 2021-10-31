@@ -11,6 +11,13 @@ Set the following environment variables:
 P2POOL_API_PATH=/path/to/p2pool/json/api
 WEBHOOK_ID=discord-webhook-id
 WEBHOOK_TOKEN=discord-webhook-token
+
+# Provide these if you want to enable xmrvsbeast bonus raffle logging
+WALLET_ADDRESS=your wallet address
+XMRVSBEAST_TOKEN=the token XvB gave you
+
+# If you just want XvB logs without block notifs, set this to "true"
+DISABLE_BLOCK_NOTIFS=false
 ```
 
 Install dependencies with `yarn`, then start the script with `yarn dev`. \

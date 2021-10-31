@@ -11,7 +11,7 @@ const DBFILE_PATH = path.join(__dirname, "..", "db.json");
 let client = new WebhookClient(WEBHOOK_ID as string, WEBHOOK_TOKEN as string, { disableMentions: 'everyone' });
 
 // Check if env vars exist
-[ 'WEBHOOK_ID', 'WEBHOOK_TOKEN', 'P2POOL_API_PATH' ].forEach(v => {
+[ 'WEBHOOK_ID', 'WEBHOOK_TOKEN' ].forEach(v => {
     if (!process.env[v]) {
         console.log(`Error: Environment variable '${v}' is not set`);
         process.exit(1);
@@ -69,10 +69,16 @@ async function run() {
     }
 }
 
-console.log('Watching directory: ' + P2POOL_API_PATH);
+if (process.env['DISABLE_BLOCK_NOTIFS'] == 'true') {
+    console.log('Info: Block notifications are disabled');
+} else {
+    if (!P2POOL_API_PATH) throw '$P2POOL_API_PATH not set';
 
-setInterval(run, 2500);
-run();
+    console.log('Watching directory: ' + P2POOL_API_PATH);
+
+    setInterval(run, 2500);
+    run();
+}
 
 if (process.env['WALLET_ADDRESS'] && process.env['XMRVSBEAST_TOKEN']) {
     let INVALID_CREDS = false;
