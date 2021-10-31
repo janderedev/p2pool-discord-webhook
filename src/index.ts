@@ -175,7 +175,7 @@ if (process.env['WALLET_ADDRESS'] && process.env['XMRVSBEAST_TOKEN']) {
                                             .addField('Wallet address', addr, true)
                                             .addField('Bonus Hashrate', hashrate, true)
                                             .addField('Date', date, true)
-                                            .setColor(boost == 'Boost' ? '#0c69ff' : '#50b343');
+                                            .setColor(boost == 'Boost' ? '#9c4bff' : '#0c69ff');
                                     } else {
                                         embed
                                             .setDescription(line.join(' '))
